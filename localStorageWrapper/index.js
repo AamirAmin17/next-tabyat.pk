@@ -14,8 +14,8 @@ export const setEncryptLocalStorage = (key, value, encrypted) => {
 
 export const getDecryptLocalStorage = (key, decrypted) => {
   if (typeof window !== "undefined") {
-    if (decrypted) {
-      if (localStorage.getItem(key)) {
+    if (localStorage.getItem(key)) {
+      if (decrypted) {
         const decrypted = cryptoJs.AES.decrypt(
           localStorage.getItem(key),
           secreteKey
@@ -23,11 +23,11 @@ export const getDecryptLocalStorage = (key, decrypted) => {
         const decryptedString = decrypted.toString(cryptoJs.enc.Utf8);
 
         return decryptedString;
-      } else {
-        console.log(`${key} is not stored in localStorage`);
       }
+      const message = localStorage.getItem(key);
+      return message;
+    } else {
+      console.log(`${key} is not stored in localStorage`);
     }
-    const message = localStorage.getItem(key);
-    return message;
   }
 };

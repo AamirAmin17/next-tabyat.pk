@@ -60,7 +60,7 @@ const Navbar = () => {
           className={`bg-primary ${
             NavbarStyles.scrollDiv
           } transition-all absolute w-full ${
-            scroll ? "transform -translate-y-[55px] -z-10" : ""
+            scroll ? "transform -translate-y-[55px] -z-10" : "z-0"
           }`}
         >
           <div className="ml-[200px] flex gap-6 text-secondaryWhite mt-auto h-full">
