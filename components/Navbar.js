@@ -6,22 +6,21 @@ import getFetchWithAxiosInterceptors from "../fetch/get/getFetchWithAxiosInterce
 import {
   setEncryptLocalStorage,
   getDecryptLocalStorage,
-  setLocalStorage,
-  getLocalStorage,
 } from "../localStorageWrapper";
 const Navbar = () => {
-  //Access decrypted message from localStorage
-  // const [message, setMessage] = React.useState("");
-  // console.log("message: ", message);
-  // const decryptMessage = () => {
-  //   const encryptedMessage = getDecryptLocalStorage("Hello");
-  //   setMessage(encryptedMessage);
-  // };
+  const [scroll, setScroll] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkScroll = window.addEventListener("scroll", (scrolling) => {
+      if (window.scrollY > 5) setScroll(true);
+      if (window.scrollY < 5) setScroll(false);
+    });
+  }, []);
 
   return (
-    <div>
-      <nav className="min-h-[64px] bg-primary">
-        <div className="flex items-center min-h-[64px] pl-5">
+    <div style={{ minHeight: "200vh" }}>
+      <nav className="min-h-[64px] bg-primary fixed w-full ">
+        <div className="flex items-center min-h-[64px] pl-5 z-10">
           <Image src={tabyatLogo} height={70} width={380} />
           <div className="h-14 flex">
             <div className="bg-[#F0F0F0] rounded-md text-sm p-1 ml-7 min-w-[160px] rounded-r-none relative">
@@ -41,16 +40,37 @@ const Navbar = () => {
           </div>
 
           <div className="flex w-full justify-end mr-4 text-secondaryWhite">
-            <button className="bg-primaryButton p-3 rounded-md px-8">
+            <button
+              className={`bg-primaryButton p-3 rounded-md px-8 ${
+                scroll ? "hidden" : "block"
+              }`}
+              onClick={() => getDecryptLocalStorage("hello")}
+            >
               Get started now
+            </button>
+            <button
+              className={`font-medium mr-12 ${scroll ? "block" : "hidden"}`}
+            >
+              Login | Signup
             </button>
           </div>
         </div>
-        <div className={`bg-primary ${NavbarStyles.scrollDiv}`}>
+
+        <div
+          className={`bg-primary ${
+            NavbarStyles.scrollDiv
+          } transition-all absolute w-full ${
+            scroll ? "transform -translate-y-[55px] -z-10" : ""
+          }`}
+        >
           <div className="ml-[200px] flex gap-6 text-secondaryWhite mt-auto h-full">
             <button>Medicines</button>
             <button>Wellness</button>
-            <div className="flex w-full justify-end mr-4 text-secondaryWhite mr-16">
+            <div
+              className={`flex w-full justify-end text-secondaryWhite mr-16 ${
+                scroll ? "hidden" : "block"
+              }`}
+            >
               <button className="font-medium">Login | Signup</button>
             </div>
           </div>
