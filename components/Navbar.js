@@ -29,11 +29,7 @@ const Navbar = () => {
           <div className="flex w-full justify-end mr-4 text-secondaryWhite">
             <button
               className="bg-primaryButton p-3 rounded-md px-8"
-              onClick={() =>
-                getFetchWithAxiosInterceptors(
-                  "https://jsonplaceholder.typicode.com/todos/2"
-                )
-              }
+              onClick={() => getFetchWithAxiosInterceptors("/todos/2")}
             >
               Get started now
             </button>

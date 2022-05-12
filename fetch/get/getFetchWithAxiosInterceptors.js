@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 const getFetchWithAxiosInterceptors = (url) => {
+  const baseURL = "https://jsonplaceholder.typicode.com";
   let returnData;
   let returnToken;
   axios.interceptors.request.use(
     (config) => {
       const { title } = returnToken;
       const httpOnlyToken = title;
-      console.log("httpOnlyToken: ", httpOnlyToken);
-
       if (httpOnlyToken) {
+        config.baseURL = baseURL;
         config.headers.Authorization = `Bearer ${httpOnlyToken}`;
       }
       return config;
@@ -18,6 +18,7 @@ const getFetchWithAxiosInterceptors = (url) => {
       return Promise.reject(error);
     }
   );
+
   const fetchToken = async () => {
     const data = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     const token = await data.json();
@@ -32,7 +33,11 @@ const getFetchWithAxiosInterceptors = (url) => {
       }
       console.log("Url is empty");
     } catch (error) {
-      console.log("Error", error);
+      if (error.response.status === 404) return console.log("404 error", error);
+      if (error.response.status === 502)
+        return console.log("Bad Gateway", error);
+      if (error.response.status === 400)
+        return console.log("Bad Request", error);
     }
   };
   const combineAsyncFunctions = async () => {
