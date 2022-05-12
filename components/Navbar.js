@@ -3,7 +3,21 @@ import tabyatLogo from "../assets/images/tabiyat_white_logo2.svg";
 import Image from "next/image";
 import NavbarStyles from "./Navbar.module.scss";
 import getFetchWithAxiosInterceptors from "../fetch/get/getFetchWithAxiosInterceptors";
+import {
+  setEncryptLocalStorage,
+  getDecryptLocalStorage,
+  setLocalStorage,
+  getLocalStorage,
+} from "../localStorageWrapper";
 const Navbar = () => {
+  //Access decrypted message from localStorage
+  // const [message, setMessage] = React.useState("");
+  // console.log("message: ", message);
+  // const decryptMessage = () => {
+  //   const encryptedMessage = getDecryptLocalStorage("Hello");
+  //   setMessage(encryptedMessage);
+  // };
+
   return (
     <div>
       <nav className="min-h-[64px] bg-primary">
@@ -27,10 +41,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex w-full justify-end mr-4 text-secondaryWhite">
-            <button
-              className="bg-primaryButton p-3 rounded-md px-8"
-              onClick={() => getFetchWithAxiosInterceptors("/todos/2")}
-            >
+            <button className="bg-primaryButton p-3 rounded-md px-8">
               Get started now
             </button>
           </div>
