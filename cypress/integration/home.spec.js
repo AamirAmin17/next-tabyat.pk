@@ -29,6 +29,6 @@ context("Testing home page", () => {
   it("takes a screenshot", () => {
     // screenshot will be saved as
     // cypress/screenshots/users.spec.js/my tests -- takes a screenshot.png
-    cy.screenshot();
+    cy.screenshot({ overwrite: true });
   });
 });
