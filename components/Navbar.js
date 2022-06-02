@@ -43,6 +43,7 @@ function Navbar() {
               }`}
               type="button"
               onClick={() => getDecryptLocalStorage("hello")}
+              title="The title is for testing"
             >
               Get started now
             </button>

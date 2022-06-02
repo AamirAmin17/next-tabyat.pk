@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 const getFetchWithAxiosInterceptors = (url) => {
   const baseURL = "https://jsonplaceholder.typicode.com";
   let returnData;
@@ -14,9 +14,7 @@ const getFetchWithAxiosInterceptors = (url) => {
       }
       return config;
     },
-    (error) => {
-      return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
   );
 
   const fetchToken = async () => {
@@ -24,14 +22,13 @@ const getFetchWithAxiosInterceptors = (url) => {
     const token = await data.json();
     returnToken = token;
   };
-  const fetchGetRequest = async (url) => {
+  const fetchGetRequest = async (url2) => {
     try {
-      if (url) {
-        const data = await axios.get(url);
+      if (url2) {
+        const data = await axios.get(url2);
         returnData = data;
         return;
       }
-      console.log("Url is empty");
     } catch (error) {
       if (error.response.status === 404) return console.log("404 error", error);
       if (error.response.status === 502)
